@@ -1,0 +1,15 @@
+$mainColor : #0059BF;
+$secondColor: #FFCE4E;
+$textColor: white;
+
+.navbar{
+    background-color: $mainColor !important;
+
+    box-shadow: 0px 0px 2px $textColor;
+    a {
+    color: white !important;
+    transition: 0.4s all ease;
+    cursor: pointer;
+    }
+    
+}

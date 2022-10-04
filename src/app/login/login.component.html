@@ -1,0 +1,32 @@
+<div class="heading text-center mb-5">
+    <h2>Sign in</h2>
+</div>
+
+<form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+
+    <p *ngIf="errorMsg" class="error alert alert-danger text-center w-50 m-auto mb-3">{{errorMsg}}</p>
+
+<div class="input w-50 m-auto mb-3">
+    <div class="inner mb-1">
+    <input type="text" placeholder="E-mail" class="w-100" formControlName="email">
+    </div>
+    <div *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched">
+        <p class="errors alert alert-danger" *ngIf="loginForm.get('email')?.getError('required')">E-mail Is required</p>
+        <p class="errors alert alert-danger" *ngIf="loginForm.get('email')?.getError('email')">E-mail invalid</p>
+    </div>
+</div>
+
+<div class="input w-50 m-auto mb-3">
+    <div class="inner mb-1">
+    <input type="password" placeholder="Password" class="w-100" formControlName="password">
+    </div>
+    <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched">
+        <p class="errors alert alert-danger" *ngIf="loginForm.get('password')?.getError('required')">Password Is required</p>
+        <p class="errors alert alert-danger" *ngIf="loginForm.get('password')?.getError('pattern')">Start with Upper-case then lower letters</p>
+    </div>
+</div>
+
+<div class="button text-center mt-4">
+<button type="submit"><i class="fa-solid fa-spinner fa-spin me-2" *ngIf="isLoading"></i>Login</button>
+</div>
+</form>

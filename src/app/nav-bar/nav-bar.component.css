@@ -1,0 +1,9 @@
+.navbar {
+  background-color: #0059BF !important;
+  box-shadow: 0px 0px 2px white;
+}
+.navbar a {
+  color: white !important;
+  transition: 0.4s all ease;
+  cursor: pointer;
+}/*# sourceMappingURL=nav-bar.component.css.map */

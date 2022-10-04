@@ -1,0 +1,103 @@
+.pointer {
+  cursor: pointer;
+}
+
+.active {
+  border: 5px solid white;
+  padding: 0;
+}
+
+.heading {
+  background-color: #256ec1;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.button {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+}
+.button:hover {
+  background-color: white;
+  color: #0059BF;
+}
+
+.goals-item .goal {
+  background-color: #FFCE4E;
+  border-radius: 15px;
+}
+.goals-item .goal h3 {
+  color: #0059BF;
+}
+.goals-item .goal p {
+  color: #0059BF;
+}
+.goals-item .goal .-progress {
+  background-color: white;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+.goals-item .goal .-progress::after {
+  content: "";
+  position: absolute;
+  width: 25%;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #0059BF;
+}
+
+.addGoal {
+  background-color: rgba(0, 0, 0, 0.41);
+  height: 100vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.addGoal .item {
+  background-color: #0059BF;
+  padding: 60px 80px;
+  border-radius: 20px;
+}
+.addGoal .item .exit {
+  top: 15px;
+  right: 25px;
+}
+.addGoal .item .inner {
+  background-color: white;
+  padding: 7px 15px;
+  border-radius: 20px;
+  width: 48%;
+}
+.addGoal .item .inner label {
+  color: #0059BF;
+}
+.addGoal .item input {
+  outline: none;
+  border: none;
+  width: 49%;
+}
+.addGoal .item .colors .color1 {
+  width: 40px;
+  height: 40px;
+  background-color: #FFCE4E;
+}
+.addGoal .item .colors .color2 {
+  width: 40px;
+  height: 40px;
+  background-color: #d73535;
+}
+.addGoal .item .colors .color3 {
+  width: 40px;
+  height: 40px;
+  background-color: #00bd61;
+}
+.addGoal .item .colors .color4 {
+  width: 40px;
+  height: 40px;
+  background-color: #b43eeb;
+}/*# sourceMappingURL=home.component.css.map */

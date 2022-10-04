@@ -1,0 +1,72 @@
+<div class="content ">
+    <div class="row">
+        <div class="col-md-4 ">
+            <div class="goals-item">
+                <div class="text-center heading d-flex justify-content-between mb-3">
+                    <h3>Goals</h3>
+                    <button class="button" (click)="display()">add</button>
+                </div>
+                <div class="col-background">
+                    <div class="goal p-3 mb-2" *ngFor="let x of allGoals; let i = index" [attr.data-index]="i" [ngStyle]="{'background-color':x.color}">
+                        <div class="goalHead d-flex justify-content-between">
+                            <h3>{{x.goal}}</h3>
+                            <button class="btn btn-outline-light" (click)="deleteItem(i)">Delete</button>
+                        </div>
+                        <div class="duration">
+                            <p>{{x.fromDate}} <i class="fa-solid fa-arrow-right-long mx-2"></i>{{x.toDate}}</p>
+                        </div>
+    
+                        <div class="-progress">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <form [formGroup]="goalDetails" (ngSubmit)="addGoal()" class="addGoal position-absolute d-flex justify-content-center align-items-center w-100 d-none">
+        
+        <div class="item w-50  text-center d-flex justify-content-center align-items-center flex-wrap position-relative">
+            <div class="exit position-absolute" (click)="hide()" >
+                <i class="fa-solid fa-xmark fa-2x pointer" (click)="hide()"></i>
+            </div>
+            <div class="inner w-100 mb-3">
+                <input type="text" formControlName="goalName" placeholder="Your Goal" class="w-100" id="goal">
+                <div *ngIf="goalDetails.get('goalName')?.errors && goalDetails.get('goalName')?.touched">
+                    <p class="errors alert alert-danger" *ngIf="goalDetails.get('goalName')?.getError('required')">goalName Is required</p>
+                </div>
+            </div>
+            <div class="inner me-2 mb-4 pe-2">
+                <label for="fromDate" class=" pe-2">From</label>
+                <input type="date" formControlName="fromDate" placeholder="Date" class="" id="fromDate">
+                <div *ngIf="goalDetails.get('fromDate')?.errors && goalDetails.get('fromDate')?.touched">
+                    <p class="errors alert alert-danger" *ngIf="goalDetails.get('fromDate')?.getError('required')">fromDate Is required</p>
+                </div>
+            </div>
+
+            <div class="inner me-2 mb-4">
+                <label for="toDate" class="pe-2">To</label>
+                <input type="date" formControlName="toDate" placeholder="Date" class="" id="toDate">
+                <div *ngIf="goalDetails.get('toDate')?.errors && goalDetails.get('toDate')?.touched">
+                    <p class="errors alert alert-danger" *ngIf="goalDetails.get('toDate')?.getError('required')">toDate Is required</p>
+                </div>
+            </div>
+
+            <div class="colors" >
+                <ul>
+                    <li class="color1 pointer mx-2" (click)="target($event)" ></li>
+                    <li class="color2 pointer mx-2" (click)="target($event)"></li>
+                    <li class="color3 pointer mx-2"(click)="target($event)"></li>
+                    <li class="color4 pointer mx-2"(click)="target($event)"></li>
+                </ul>
+                        
+            </div>
+
+
+            <div class="add w-100 mt-5">
+            <button class="button d-block" type="submit" [disabled]="goalDetails.invalid">add</button>
+            </div>
+        </div>
+    </form>
+</div>

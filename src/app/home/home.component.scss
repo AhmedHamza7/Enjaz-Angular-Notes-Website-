@@ -1,0 +1,143 @@
+$mainColor : #0059BF;
+$secondColor: #FFCE4E;
+$textColor: white;
+
+.pointer {
+    cursor: pointer;
+}
+.active {
+    border: 5px solid white;
+    padding:0
+}
+.heading {
+    background-color: #256ec1;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.col-background{
+    background-color: #001e40;
+    box-shadow: 1px 5px 5px rgba(80, 80, 80, 0.521);
+    padding: 20px 10px;
+    border-radius: 20px;
+}
+
+.button {
+    background-color: transparent;
+    color: white;
+    border:2px solid white;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+
+
+    &:hover {
+        background-color: white;
+        color: $mainColor;
+    }
+}
+
+
+.goals-item {
+
+    .goal{
+        background-color: #FFCE4E;
+        border-radius: 15px;
+        h3 {
+            color:$textColor
+        }
+        p {
+            color: $textColor;
+        }
+
+        .-progress {
+            background-color: white;
+            height: 20px;
+            border-radius: 10px;
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                width:25%;
+                height: 20px;
+            border-radius: 10px;
+
+                background-color: $mainColor;
+            }
+        }
+    }
+}
+
+
+.addGoal {
+    background-color: rgba(0, 0, 0, 0.41);
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+
+    .item {
+        background-color: $mainColor;
+        padding: 60px 80px;
+        border-radius: 20px;
+
+        .exit {
+            top:15px;
+            right:25px;
+        }
+        .inner{
+            background-color: $textColor;
+            padding: 7px 15px;
+            border-radius: 20px;
+            width: 48%;
+
+            label {
+                color:$mainColor
+            }
+
+        }
+    
+        input{
+            outline: none;
+            border: none;
+            width: 49%;
+        }
+
+        .colors {
+
+            ul {
+                list-style-type: none;
+                display: inline;
+
+                li{
+                    display: inline-block;
+                    
+                }
+            }
+            .color1 {
+                width: 40px;
+                height:40px;
+                background-color: #d19600;
+            }
+            .color2 {
+                width: 40px;
+                height:40px;
+                background-color: #af0000;
+            }
+            .color3 {
+                width: 40px;
+                height:40px;
+                background-color: #00522b;
+            }
+            .color4 {
+                width: 40px;
+                height:40px;
+                background-color: #460066;
+            }
+        }
+    }
+    
+        
+    }
+
+
