@@ -1,14 +1,14 @@
-<div class="content ">
+<div class="content px-5">
     <div class="row">
         <div class="col-md-4 ">
-            <div class="goals-item">
+            <div class="goals-item  col-background">
                 <div class="text-center heading d-flex justify-content-between mb-3">
                     <h3>Goals</h3>
                     <button class="button" (click)="display()">add</button>
                 </div>
-                <div class="col-background">
+                <div class="">
                     <div class="goal p-3 mb-2" *ngFor="let x of allGoals; let i = index" [attr.data-index]="i" [ngStyle]="{'background-color':x.color}">
-                        <div class="goalHead d-flex justify-content-between">
+                        <div class="goalHead d-flex justify-content-between flex-wrap">
                             <h3>{{x.goal}}</h3>
                             <button class="btn btn-outline-light" (click)="deleteItem(i)">Delete</button>
                         </div>
@@ -21,6 +21,73 @@
                     </div>
                 </div>
                 
+            </div>
+        </div>
+
+        <div class="col-md-4 ">
+            <div class="tasks-item  col-background">
+                <div class="text-center heading d-flex justify-content-between mb-3">
+                    <h3>Tasks</h3>
+                </div>
+                <div class="">
+                    <div class="tasks  goalTasks-background px-2 py-1 mb-2" *ngFor="let x of allGoals; let i = index" [attr.data-index]="i" >
+                        <div class="taskHead d-flex justify-content-center align-items-center flex-wrap mb-2"   [style.border-color]="x.color">
+                            <div>
+                            <p class="text-white">{{x.goal}}</p>
+                            </div>
+                            
+                        </div>
+
+                        <div class="taskContent mb-3  ">
+                            <div class="taskInput  position-relative mb-2">
+                                <input type="text" placeholder="Task" class="taskInputinner">
+
+                                <button class="btn btn-outline-light plus" (click)="addTask(i)">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+
+                            <div class="task" [style.border-color]="x.color">
+                                    <div class="onceTask d-flex justify-content-between align-items-center p-2" *ngFor="let once of everyTasksGoal[i];let e = index"  [attr.data-index]="i">
+                                       <div>
+                                        <p>{{once}}</p>
+                                       </div>
+                                        <div class="d-flex ">
+                                            <button class="btn btn-outline-light arrow d-flex align-items-center justify-content-center" (click)="todayAdd($event)">
+                                                <i class="fa-solid fa-arrow-right-long"></i>
+                                            </button>
+                                            <button class="mx-1 btn btn-outline-light arrow d-flex align-items-center justify-content-center" (click)="deleteGoalTask(i,e)" [attr.data-index]="e">
+                                                <i class="fa-solid fa-trash" (click)="deleteGoalTask(i,e)"></i>
+                                            </button>
+                                            
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                            
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="today-item  col-background">
+                <div class="text-center heading mb-3">
+                    <h3 class="text-center">Today</h3>
+                </div>
+                
+                <div class="todayTasks">
+                    <div  *ngFor="let task of todayTasks" class="d-flex align-items-center">
+                        <input type="checkbox" [id]="task" class="p-0 m-0">
+                        <label [for]="task" class="mx-2 p-0 m-0">{{task}}</label>
+                    </div>
+
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -61,6 +128,38 @@
                     <li class="color4 pointer mx-2"(click)="target($event)"></li>
                 </ul>
                         
+            </div>
+
+
+            <div class="add w-100 mt-5">
+            <button class="button d-block" type="submit" [disabled]="goalDetails.invalid">add</button>
+            </div>
+        </div>
+    </form>
+
+    <form [formGroup]="taskDetails" class="addTask position-absolute d-flex justify-content-center align-items-center w-100 d-none">
+        
+        <div class="item w-50  text-center d-flex justify-content-center align-items-center flex-wrap position-relative">
+            <div class="exit position-absolute"  >
+                <i class="fa-solid fa-xmark fa-2x pointer" ></i>
+            </div>
+            <div class="inner w-100 mb-3">
+                <input type="text"  placeholder="Your Task" class="w-100" id="task" formControlName="task">
+                <div *ngIf="taskDetails.get('task')?.errors && taskDetails.get('task')?.touched">
+                    <p class="errors alert alert-danger" >Task Is required</p>
+                </div>
+            </div>
+
+            <div class="goalsList text-left">
+                <label for="goalsList">Related to which goal: </label> 
+                <select name="goalsList" id="goalsList" formControlName="goalsList">
+                            <option *ngFor="let x of allGoals" [ngValue]="x">{{x.goal}}</option>
+                            <option>Other</option>
+
+                </select>
+                <div *ngIf="taskDetails.get('goalsList')?.errors && taskDetails.get('goalsList')?.touched">
+                    <p class="errors alert alert-danger" >related goal Is required</p>
+                </div>
             </div>
 
 

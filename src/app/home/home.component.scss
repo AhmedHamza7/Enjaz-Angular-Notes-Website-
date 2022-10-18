@@ -2,6 +2,9 @@ $mainColor : #0059BF;
 $secondColor: #FFCE4E;
 $textColor: white;
 
+*{
+    box-sizing: border-box;
+}
 .pointer {
     cursor: pointer;
 }
@@ -16,10 +19,16 @@ $textColor: white;
 }
 
 .col-background{
-    background-color: #001e40;
-    box-shadow: 1px 5px 5px rgba(80, 80, 80, 0.521);
+    background-color: $mainColor;
+    box-shadow: 1px 2px 5px rgba(18, 18, 18, 0.759);
     padding: 20px 10px;
     border-radius: 20px;
+}
+
+.goalTasks-background {
+    background-color: #002147;
+    border-radius: 20px;
+
 }
 
 .button {
@@ -38,7 +47,6 @@ $textColor: white;
 
 
 .goals-item {
-
     .goal{
         background-color: #FFCE4E;
         border-radius: 15px;
@@ -64,6 +72,101 @@ $textColor: white;
                 background-color: $mainColor;
             }
         }
+    }
+}
+
+.tasks-item{
+    p {
+        padding: 0;
+        margin: 0;
+    }
+    font-size: 22px;
+    .doneBox{
+        padding: 0;
+        margin: 0;
+        width: 30px;
+        height: 30px;
+        background-color: white;
+    }
+
+    .tasks {
+        margin: 0;
+        padding: 0;
+        .taskHead{
+            border: {
+                top: 2px solid;
+                right: 2px solid;
+                left:2px solid;
+                radius: 10px
+            }
+            position: relative;
+
+            
+            p {
+                margin: 0;
+                padding: 10px;
+                text-align: center;
+            }
+        }
+
+        .taskContent{
+            .taskInput{
+                background-color: #002147;
+                padding: 2px 8px;
+                border-radius: 20px;
+                border: 2px solid white;
+                
+                .plus{
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                input{
+                    outline: none;
+                    border: none;
+                    width: 100%;
+                    background-color: transparent;
+                    color: white;
+                    
+                }
+                input::-webkit-input-placeholder {
+                    color: white;
+
+                }
+
+                button{
+                    position: absolute;
+                    right:12px;
+                    top:5px;
+                }
+    
+    
+            }
+
+            .task {
+                border: {
+                    bottom: 2px solid;
+                    right: 2px solid;
+                    left:2px solid;
+                    radius: 10px
+                }
+                .onceTask:not(:last-child) {
+                    border-bottom: 1px solid white;
+                    border-spacing: 10px;
+                }
+
+                .arrow{
+                    width: 40px;
+                    height: 30px;
+                }
+
+            }
+        
+            
+        }
+
     }
 }
 
@@ -140,4 +243,78 @@ $textColor: white;
         
     }
 
+.addTask {
+        background-color: rgba(0, 0, 0, 0.41);
+        height: 100vh;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right:0;
+    
+        .item {
+            background-color: $mainColor;
+            padding: 60px 80px;
+            border-radius: 20px;
+    
+            .exit {
+                top:15px;
+                right:25px;
+            }
+            .inner{
+                background-color: $textColor;
+                padding: 7px 15px;
+                border-radius: 20px;
+                width: 48%;
+    
+                label {
+                    color:$mainColor
+                }
+    
+            }
+        
+            input{
+                outline: none;
+                border: none;
+                width: 49%;
+            }
+    
+        }
+        
+        
+        select {
+            outline: none;
+            width: 300px;
+            padding: 7px 15px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 15px;
+            margin-inline: 10px;
+            
+            option{
+                font-weight: bold;
+            }
+        }
+        }
 
+
+.today-item{
+
+    .todayTasks{
+        font-size: 28px;
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        input{
+            width: 25px;
+            height:25px;
+            padding: 0;
+            margin: 0;
+        }
+        label{
+            padding: 0;
+            margin: 0;
+        }
+    }
+}
