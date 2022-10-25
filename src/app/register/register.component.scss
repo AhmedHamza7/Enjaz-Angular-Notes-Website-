@@ -5,6 +5,7 @@ $textColor: white;
 
 
 .input {
+    width:50%;
     .inner{
         background-color: $textColor;
         padding: 7px 15px;
@@ -30,5 +31,12 @@ $textColor: white;
         border: 2px solid $mainColor;
         color: $mainColor;
         background-color: $textColor;
+    }
+}
+
+@media screen and (max-width:992px){
+    .input {
+        width:80%;
+        margin: auto;
     }
 }
