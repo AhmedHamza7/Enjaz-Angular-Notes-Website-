@@ -122,14 +122,16 @@ addGoal(){
     localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
     
   this.hide()
-
+  goal.value = ''
+  fromDate.value = ''
+  fromDate.value = ''
 }
 
 deleteItem(indexItem:any) {
   this.allGoals.splice(indexItem, 1)
   this.everyTasksGoal.splice(indexItem, 1)
   this.percentage.splice(indexItem, 1)
-  
+
   localStorage.setItem('goals',JSON.stringify(this.allGoals) )
   localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
   localStorage.setItem('percentages',  JSON.stringify(this.percentage))
@@ -187,7 +189,11 @@ addTask(i:any) {
         lengths: this.lengths,
         percentage: this.percentage[i]
       }
-    this.deleteGoalTask(i,e)
+
+      
+      this.everyTasksGoal[i].splice(e, 1)
+      localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
+
     
     }
 
@@ -198,21 +204,46 @@ addTask(i:any) {
 
   deleteGoalTask(i:any, e:any){
     this.everyTasksGoal[i].splice(e, 1)
+
+    this.minus[i] = this.minus[i] + 1 
+    this.percentage[i] = (this.minus[i] / this.lengths) * 100
+      
+    for (let x=0; x < this.allGoals.length;x++){
+      let taskDone = document.getElementById('taskDone')
+
+      if (this.percentage[i] == 100) {
+        const diplayCelebrate = setTimeout(() => {
+          taskDone?.classList.replace('d-none','d-flex')
+        }, 0);
+      }
+    }
+      this.everyPercentage[i] = {
+        minus: this.minus[i],
+        lengths: this.lengths,
+        percentage: this.percentage[i]
+      }
+    localStorage.setItem('percentages',  JSON.stringify(this.percentage))
     localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
+
   }
 
   // T  O  D  A  Y - T  A  S  K  S    FUNCTIONS
 
   addTodayTask(){
     let inputToday = document.getElementById('inputToday') as HTMLInputElement
-    this.todayTasks.push(inputToday.value)
-    localStorage.setItem('todayTasks', JSON.stringify(this.todayTasks))
+
+    if (inputToday.value != '') {
+      this.todayTasks.push(inputToday.value)
+      localStorage.setItem('todayTasks', JSON.stringify(this.todayTasks))
+    }
+    
 
     inputToday.value = ''
 
   }
   deleteTodayTask(i:any){
     this.todayTasks.splice(i, 1)
+
     localStorage.setItem('todayTasks', JSON.stringify(this.todayTasks))
   }
 taskDone(i:any) {
