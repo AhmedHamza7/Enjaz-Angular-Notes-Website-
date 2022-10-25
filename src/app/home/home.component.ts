@@ -155,6 +155,29 @@ addTask(i:any) {
       this.everyTasksGoal[i].push(taskInput[i].value)
       this.lengths = this.everyTasksGoal[i].length
     }
+
+    if (this.minus[i] != 0) {
+      this.minus[i] = this.minus[i] - 1 
+    this.percentage[i] = (this.minus[i] / this.lengths) * 100
+      
+    for (let x=0; x < this.allGoals.length;x++){
+      let taskDone = document.getElementById('taskDone')
+
+      if (this.percentage[i] == 100) {
+        const diplayCelebrate = setTimeout(() => {
+          taskDone?.classList.replace('d-none','d-flex')
+        }, 0);
+      }
+    }
+      this.everyPercentage[i] = {
+        minus: this.minus[i],
+        lengths: this.lengths,
+        percentage: this.percentage[i]
+      }
+    localStorage.setItem('percentages',  JSON.stringify(this.percentage))
+    }
+    
+
     
     localStorage.setItem('lengthsOfTasks', JSON.stringify(this.lengths))
     localStorage.setItem('lengths', JSON.stringify(this.lengths))
