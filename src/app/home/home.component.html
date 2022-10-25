@@ -1,22 +1,95 @@
-<div class="content px-5">
+<div class="content px-md-5 p-sm-2 position-relative">
+
+
+            <div class="habits mb-3 pb-5">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-center justify-content-center">
+                        <div class="habitsHead d-flex mb-2 flex-wrap  align-items-center ">
+                            <div class="d-flex mb-2 w-100 align-items-center">
+                                <h2>Habits</h2>
+                                <button class="btn btn-outline-light mx-1" (click)="reChecked()">
+                                    <i class="fa-solid fa-arrow-rotate-right p-0 m-0" (click)="reChecked()"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="habitsContent d-flex align-items-center justify-content-center flex-wrap">
+
+                            <div class="taskInput  position-relative mb-2 m-1" id="DivInputHabit">
+                                <input type="text" placeholder="Task" class="habitInput" id="inputHabit">
+        
+                                <button class="btn btn-outline-light plus" (click)="addHabit()">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="w-100">
+                                <div class="d-flex justify-content-center">
+                                    <table >
+                                        <thead>
+                                            <th *ngFor="let habit of habits; let i = index" [attr.data-index]="i">
+                                                    <div class="d-flex">
+                                                        <span>
+                                                            {{habit}}
+                                                        </span>
+                                                        <button class="mx-1 btn btn-outline-light arrow d-flex align-items-center justify-content-center" (click)="deleteHabit(i)">
+                                                            <i class="fa-solid fa-trash" (click)="deleteHabit(i)"></i>
+                                                        </button>
+                                                    </div>
+                                                
+                                            </th>
+                                        </thead>
+                
+                                        <tbody>
+                                            <tr>
+                                                <td *ngFor="let habit of habits; let i = index" [attr.data-index]="i" class="py-1 text-center">
+                                                    <input type="checkbox" class="habitCheck" >
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
     <div class="row">
-        <div class="col-md-4 ">
+        <div class=" col-xl-4 col-md-6 col-sm-12">
             <div class="goals-item  col-background">
                 <div class="text-center heading d-flex justify-content-between mb-3">
                     <h3>Goals</h3>
                     <button class="button" (click)="display()">add</button>
                 </div>
                 <div class="">
-                    <div class="goal p-3 mb-2" *ngFor="let x of allGoals; let i = index" [attr.data-index]="i" [ngStyle]="{'background-color':x.color}">
+                    <div class="goal p-3 mb-2 position-relative" *ngFor="let x of allGoals; let i = index;" [attr.data-index]="i" [ngStyle]="{'background-color':x.color}">
                         <div class="goalHead d-flex justify-content-between flex-wrap">
                             <h3>{{x.goal}}</h3>
-                            <button class="btn btn-outline-light" (click)="deleteItem(i)">Delete</button>
+                            <button class="btn btn-outline-light" (click)="deleteItem(i)" >Delete</button>
                         </div>
                         <div class="duration">
                             <p>{{x.fromDate}} <i class="fa-solid fa-arrow-right-long mx-2"></i>{{x.toDate}}</p>
                         </div>
-    
-                        <div class="-progress">
+
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"   [ngStyle]="{'width':percentage[i]+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <p class="fw-bold text-black mx-4">{{percentage[i] | toNumber| number:'1.0-1'}}%</p>
+                        </div>
+
+                        <div *ngIf="percentage[i] >= 100;" class="goalDone p-3 d-flex flex-wrap">
+                            <div class="d-flex justify-content-between w-100">
+                                    <h3>{{x.goal}}</h3>
+                                    <i class="fa-regular fa-circle-check"></i>
+                            </div>
+                            <div class="w-100">
+                                <button class="btn btn-outline-light w-100" (click)="deleteItem(i);hideGoalDone(i)" onclick="window.location.reload()">Delete</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -24,7 +97,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 ">
+        <div class=" col-xl-4 col-md-6 col-sm-12 ">
             <div class="tasks-item  col-background">
                 <div class="text-center heading d-flex justify-content-between mb-3">
                     <h3>Tasks</h3>
@@ -53,7 +126,7 @@
                                         <p>{{once}}</p>
                                        </div>
                                         <div class="d-flex ">
-                                            <button class="btn btn-outline-light arrow d-flex align-items-center justify-content-center" (click)="todayAdd($event)">
+                                            <button class="btn btn-outline-light arrow d-flex align-items-center justify-content-center" (click)="todayAdd($event,i,e)"  [attr.data-index]="e">
                                                 <i class="fa-solid fa-arrow-right-long"></i>
                                             </button>
                                             <button class="mx-1 btn btn-outline-light arrow d-flex align-items-center justify-content-center" (click)="deleteGoalTask(i,e)" [attr.data-index]="e">
@@ -74,16 +147,31 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class=" col-xl-4 col-md-6 col-sm-12">
             <div class="today-item  col-background">
                 <div class="text-center heading mb-3">
                     <h3 class="text-center">Today</h3>
                 </div>
                 
                 <div class="todayTasks">
-                    <div  *ngFor="let task of todayTasks" class="d-flex align-items-center">
-                        <input type="checkbox" [id]="task" class="p-0 m-0">
-                        <label [for]="task" class="mx-2 p-0 m-0">{{task}}</label>
+                    <div class="taskInput  position-relative mb-2 ">
+                        <input type="text" placeholder="Task" class="taskInputinner" id="inputToday">
+
+                        <button class="btn btn-outline-light plus" (click)="addTodayTask()">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <div  *ngFor="let task of todayTasks; let i = index" class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <input type="checkbox" [id]="task" (click)="taskDone(i)" class="checkBox p-0 m-0">
+                            <label [for]="task" class="mx-2 p-0 m-0">{{task}}</label>
+                        </div>
+
+                        <div>
+                            <button class="mx-1 btn btn-outline-light arrow d-flex align-items-center justify-content-center" (click)="deleteTodayTask(i)" [attr.data-index]="i">
+                                <i class="fa-solid fa-trash" (click)="deleteTodayTask(i)" [attr.data-index]="i"></i>
+                            </button>
+                        </div>
                     </div>
 
                     
@@ -92,9 +180,9 @@
         </div>
     </div>
     
-    <form [formGroup]="goalDetails" (ngSubmit)="addGoal()" class="addGoal position-absolute d-flex justify-content-center align-items-center w-100 d-none">
+    <form [formGroup]="goalDetails" (ngSubmit)="addGoal()" class="addGoal position-absolute d-flex justify-content-center align-items-center w-sm-100 d-none">
         
-        <div class="item w-50  text-center d-flex justify-content-center align-items-center flex-wrap position-relative">
+        <div class="item text-center d-flex justify-content-center align-items-center flex-wrap position-relative">
             <div class="exit position-absolute" (click)="hide()" >
                 <i class="fa-solid fa-xmark fa-2x pointer" (click)="hide()"></i>
             </div>
@@ -137,35 +225,18 @@
         </div>
     </form>
 
-    <form [formGroup]="taskDetails" class="addTask position-absolute d-flex justify-content-center align-items-center w-100 d-none">
+    <div class="taskDone addGoal position-absolute d-flex justify-content-center align-items-center w-100 d-none" id="taskDone">
         
-        <div class="item w-50  text-center d-flex justify-content-center align-items-center flex-wrap position-relative">
-            <div class="exit position-absolute"  >
-                <i class="fa-solid fa-xmark fa-2x pointer" ></i>
-            </div>
-            <div class="inner w-100 mb-3">
-                <input type="text"  placeholder="Your Task" class="w-100" id="task" formControlName="task">
-                <div *ngIf="taskDetails.get('task')?.errors && taskDetails.get('task')?.touched">
-                    <p class="errors alert alert-danger" >Task Is required</p>
+        <div class="celebration d-flex justify-content-center align-items-center flex-wrap">
+            
+            <div class="clap d-flex justify-content-center align-items-center flex-wrap p-4 position-relative">
+                <div class="exit position-absolute" (click)="hideCelebrate()" >
+                    <i class="fa-solid fa-xmark fa-2x pointer" (click)="hideCelebrate()"></i>
                 </div>
-            </div>
-
-            <div class="goalsList text-left">
-                <label for="goalsList">Related to which goal: </label> 
-                <select name="goalsList" id="goalsList" formControlName="goalsList">
-                            <option *ngFor="let x of allGoals" [ngValue]="x">{{x.goal}}</option>
-                            <option>Other</option>
-
-                </select>
-                <div *ngIf="taskDetails.get('goalsList')?.errors && taskDetails.get('goalsList')?.touched">
-                    <p class="errors alert alert-danger" >related goal Is required</p>
-                </div>
-            </div>
-
-
-            <div class="add w-100 mt-5">
-            <button class="button d-block" type="submit" [disabled]="goalDetails.invalid">add</button>
+                <i class="fa-sharp fa-solid fa-hands-clapping fa-8x fa-shake text-warning mb-2 "style="--fa-animation-duration: 2s;"></i>
+                <p class="fw-bold w-100 text-center">AWESOME.. !!</p>
             </div>
         </div>
-    </form>
+        
+    </div>
 </div>

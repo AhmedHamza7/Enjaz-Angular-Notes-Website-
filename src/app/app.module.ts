@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
+import { ToNumberPipe } from './to-number.pipe';
  
 
 @NgModule({
@@ -19,7 +20,8 @@ import {  HttpClientModule } from '@angular/common/http';
     HomeComponent,
     AboutComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ToNumberPipe
   ],
   imports: [
     BrowserModule,

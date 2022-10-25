@@ -2,8 +2,49 @@ $mainColor : #0059BF;
 $secondColor: #FFCE4E;
 $textColor: white;
 
+
+.taskInput{
+    background-color: $mainColor;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 2px solid white;
+    
+    .plus{
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    input{
+        outline: none;
+        border: none;
+        width: 100%;
+        background-color: transparent;
+        color: white;
+        
+    }
+    input::-webkit-input-placeholder {
+        color: white;
+
+    }
+
+    button{
+        position: absolute;
+        right:12px;
+        top:5px;
+    }
+
+
+}
 *{
     box-sizing: border-box;
+}
+
+
+.exit {
+    top:15px;
+    right:25px;
 }
 .pointer {
     cursor: pointer;
@@ -46,6 +87,65 @@ $textColor: white;
 }
 
 
+
+.habits{
+    border-bottom: 1px solid white;
+
+    .habitsHead{
+        button{
+
+            border: none;
+            padding: 5px 10px;
+            i{
+                font-size: 18px;
+            }
+        }
+    }
+    .habitsContent{
+
+        #DivInputHabit {
+            width: 25%;
+        }
+        table{
+            border: 1px solid;
+            thead{
+                border: 1px solid;
+
+                th{
+                    border: 1px solid;
+                    padding-left: 10px;
+
+                    button{
+                        padding: 5px;
+                        border: none;
+                        i{
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+
+            tbody{
+                tr{
+                    border: 1px solid;
+
+                    td{
+                        border: 1px solid;
+                        padding: 10px;
+
+                        input{
+                            width: 20px;
+                            height:20px
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+// @media screen and (max-width:992px){
+    
+// }
 .goals-item {
     .goal{
         background-color: #FFCE4E;
@@ -67,9 +167,23 @@ $textColor: white;
                 position: absolute;
                 width:25%;
                 height: 20px;
-            border-radius: 10px;
-
+                border-radius: 10px;
                 background-color: $mainColor;
+            }
+        }
+
+
+        .goalDone{
+            position: absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom: 0;
+            border-radius: 15px;
+            background-color: #4BB543;
+
+            i{
+                font-size:50px;
             }
         }
     }
@@ -80,6 +194,8 @@ $textColor: white;
         padding: 0;
         margin: 0;
     }
+
+    
     font-size: 22px;
     .doneBox{
         padding: 0;
@@ -183,7 +299,7 @@ $textColor: white;
         background-color: $mainColor;
         padding: 60px 80px;
         border-radius: 20px;
-
+        width:50%;
         .exit {
             top:15px;
             right:25px;
@@ -239,9 +355,25 @@ $textColor: white;
             }
         }
     }
-    
+    @media screen and (max-width:992px){
+        .item{
+            padding: 50px 20px;
+
+            width: 90%;
+        }
+
+        .inner{
+            width: 100%;
+
+            input{
+                width: 100%;
+            }
+        }
+    }
         
     }
+
+    
 
 .addTask {
         background-color: rgba(0, 0, 0, 0.41);
@@ -298,9 +430,7 @@ $textColor: white;
 
 
 .today-item{
-
     .todayTasks{
-        font-size: 28px;
 
         *{
             padding: 0;
@@ -315,6 +445,108 @@ $textColor: white;
         label{
             padding: 0;
             margin: 0;
+        font-size: 28px;
+        }
+
+        .arrow{
+            width: 40px;
+            height: 30px;
+        }
+
+        .taskInput{
+            background-color: $mainColor;
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 2px solid white;
+            
+            .plus{
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            input{
+                outline: none;
+                border: none;
+                width: 100%;
+                background-color: transparent;
+                color: white;
+                
+            }
+            input::-webkit-input-placeholder {
+                color: white;
+
+            }
+
+            button{
+                position: absolute;
+                right:12px;
+                top:5px;
+            }
+
+
         }
     }
+}
+
+.taskDone {
+    overflow-y: hidden;
+    min-height: 100%;
+
+    .celebration{
+        overflow-y: hidden;
+        min-height: 100%;
+        width: 100%;
+        background-image: url('../../../src/assets/celebration.png');
+        background-position: center;
+        background-size: cover;
+        animation: celebrate 5s linear infinite;
+
+
+        .clap{
+            background-color: #57ff2977;
+            border-radius: 15px;
+            p {
+                font-size: 50px;
+                color:#fff 
+            }
+        }
+
+        .exit {
+            color:white;
+            padding: 10px;
+            top:10px;
+            right:10px;
+            font-size:20px;
+            // border: 5px solid black;
+            // border-radius: 50px;
+
+
+        }
+    }
+
+    @keyframes celebrate {
+        0%{
+            background-position: 20% 100%;
+        }
+        100%{
+            background-position: 0% 0%;
+        }
+    }
+    
+}
+
+
+@media screen and (max-width:992px){
+    .col-md-6{
+        margin-bottom: 20px;
+    }
+
+    #DivInputHabit {
+            width: 80% !important;
+        }
+    #inputHabit {
+        width:80% !important;
+        }
 }

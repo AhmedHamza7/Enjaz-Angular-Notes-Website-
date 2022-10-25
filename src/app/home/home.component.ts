@@ -1,8 +1,11 @@
+import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import {allGoals} from '../goals'
 import {goalTasks} from '../goals'
+
+import {percentages} from '../goals'
 // import {allTasks} from '../goals'
 declare var $: any;
 
@@ -20,12 +23,20 @@ export class HomeComponent implements OnInit {
   fromDate = document.getElementById('fromDate') as HTMLInputElement
   toDate = document.getElementById('toDate') as HTMLInputElement
 
+  habits:any[] = []
+  habitCheck: any[] = []
   allGoals:allGoals[] = []
   oncetasks:goalTasks[] = []
   onlyTasks:any[] = []
-  everyTasksGoal: string[][] = []
-
+  everyTasksGoal: any[][] = []
+  everyPercentage: percentages[] = []
+  lengths:any= ''
+  minus:any[] = []
+  percentage:any[] = []
+  tasksLength:any[] = []
   colorInput:any 
+
+
 
 
   goalDetails = new FormGroup({
@@ -41,6 +52,36 @@ export class HomeComponent implements OnInit {
 
   })
 
+  // H   A   B   I   T    FUNCTIONS
+  addHabit() {
+    let inputHabit = document.getElementById('inputHabit') as HTMLInputElement
+
+    if (inputHabit.value != ''){
+    this.habits.push(inputHabit.value)
+    }
+    localStorage.setItem('habits', JSON.stringify(this.habits))
+
+    inputHabit.value = ''
+  }
+
+  deleteHabit(i:any){
+    this.habits.splice(i,1)
+    localStorage.setItem('habits', JSON.stringify(this.habits))
+  }
+
+  reChecked(){
+    let habitCheck = document.getElementsByClassName('habitCheck') as HTMLCollectionOf<HTMLInputElement>
+
+    for(let x=0; x < this.habits.length; x++){
+
+      if ( $('.habitCheck').prop("checked",true)){
+        $('.habitCheck').prop("checked",false)
+
+      }
+    }
+  }
+
+  // G   O   A   L  S    FUNCTIONS
 
   target(e:any){
     let color1:any = e.target
@@ -51,7 +92,6 @@ export class HomeComponent implements OnInit {
   }
    
 addGoal(){
-
   let goal = document.getElementById('goal') as HTMLInputElement
   let fromDate = document.getElementById('fromDate') as HTMLInputElement
   let toDate = document.getElementById('toDate') as HTMLInputElement
@@ -70,93 +110,184 @@ addGoal(){
     color:colorValue,
     
   })
-
-  this.oncetasks = JSON.parse(localStorage.getItem('goals') || '')
-
   localStorage.setItem('goals',JSON.stringify(this.allGoals) )
+
+    this.oncetasks = JSON.parse(localStorage.getItem('goals') || '')
+    this.everyTasksGoal[this.oncetasks.length - 1] = new Array()
+    this.oncetasks[this.oncetasks.length - 1].tasks = new Array()
+    this.percentage[this.oncetasks.length - 1] = new Array()
+    this.minus= new Array(this.allGoals.length).fill(0)
+
+    localStorage.setItem('percentages',  JSON.stringify(this.percentage))
+    localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
+    
   this.hide()
 
 }
 
+deleteItem(indexItem:any) {
+  this.allGoals.splice(indexItem, 1)
+  this.everyTasksGoal.splice(indexItem, 1)
+  this.percentage.splice(indexItem, 1)
+  
+  localStorage.setItem('goals',JSON.stringify(this.allGoals) )
+  localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
+  localStorage.setItem('percentages',  JSON.stringify(this.percentage))
+
+
+}
+display() {
+  let addGoal:any = document.getElementsByClassName('addGoal')[0]
+  addGoal.classList.replace('d-none','d-flex')
+}
+hide(){
+  let addGoal:any = document.getElementsByClassName('addGoal')[0]
+  addGoal.classList.replace('d-flex','d-none')
+}
+  // G   O   A   L - T  A  S  K  S    FUNCTIONS
 
 addTask(i:any) {
   let taskInput = document.getElementsByClassName("taskInputinner") as HTMLCollectionOf<HTMLInputElement>
-  this.oncetasks = JSON.parse(localStorage.getItem('goals') || '')
-    console.log(this.everyTasksGoal[i]);
-    
+  
     if(taskInput[i].value != ''){
       this.everyTasksGoal[i].push(taskInput[i].value)
+      this.lengths = this.everyTasksGoal[i].length
     }
-    localStorage.setItem('goalTasks',JSON.stringify(this.everyTasksGoal))
-  this.resetTasks(i)
-  
-}
-resetTasks(i:any){
-  let taskInput = document.getElementsByClassName("taskInputinner") as HTMLCollectionOf<HTMLInputElement>
-  taskInput[i].value = ''
-
-}
-
-deleteItem(indexItem:any) {
-    this.allGoals.splice(indexItem, 1)
-    localStorage.setItem('goals',JSON.stringify(this.allGoals) )
-  }
-  
-deleteGoalTask(i:any, e:any){
-  console.log(this.everyTasksGoal);
-  console.log(i);
-
-  // this.everyTasksGoal[i].splice()
-
-    this.everyTasksGoal[i].splice(e, 1)
     
-    localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
-  }
-  display() {
-    let addGoal:any = document.getElementsByClassName('addGoal')[0]
-    addGoal.classList.replace('d-none','d-flex')
-  }
-  hide(){
-    let addGoal:any = document.getElementsByClassName('addGoal')[0]
-    addGoal.classList.replace('d-flex','d-none')
-  }
+    localStorage.setItem('lengthsOfTasks', JSON.stringify(this.lengths))
+    localStorage.setItem('lengths', JSON.stringify(this.lengths))
+    localStorage.setItem('goalTasks',JSON.stringify(this.everyTasksGoal))
+    
+  this.resetTasks(i)
+}
 
   todayTasks: string[] = []
-  todayAdd(e:any){
-    let target = e.target
+  todayAdd(event:any, i:any, e:any){
+    let target = event.target
     let arrow = document.getElementsByClassName('arrow')
     let textTask = $(target).parent().prev().children().text()
-    if(textTask != '') {
-    this.todayTasks.push(textTask)
 
+    if(textTask != '') {
+
+      this.minus[i]++
+    this.todayTasks.push(textTask)
+    this.percentage[i] = (this.minus[i] / this.lengths) * 100
+      
+    for (let x=0; x < this.allGoals.length;x++){
+      let taskDone = document.getElementById('taskDone')
+
+      if (this.percentage[i] == 100) {
+        const diplayCelebrate = setTimeout(() => {
+          taskDone?.classList.replace('d-none','d-flex')
+        }, 0);
+      }
     }
-    console.log(textTask);
+      this.everyPercentage[i] = {
+        minus: this.minus[i],
+        lengths: this.lengths,
+        percentage: this.percentage[i]
+      }
+    this.deleteGoalTask(i,e)
+    
+    }
+
+    localStorage.setItem('percentages',  JSON.stringify(this.percentage))
+    localStorage.setItem('percentagesDetails',  JSON.stringify(this.everyPercentage))
+    localStorage.setItem('todayTasks', JSON.stringify(this.todayTasks))
   }
+
+  deleteGoalTask(i:any, e:any){
+    this.everyTasksGoal[i].splice(e, 1)
+    localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
+  }
+
+  // T  O  D  A  Y - T  A  S  K  S    FUNCTIONS
+
+  addTodayTask(){
+    let inputToday = document.getElementById('inputToday') as HTMLInputElement
+    this.todayTasks.push(inputToday.value)
+    localStorage.setItem('todayTasks', JSON.stringify(this.todayTasks))
+
+    inputToday.value = ''
+
+  }
+  deleteTodayTask(i:any){
+    this.todayTasks.splice(i, 1)
+    localStorage.setItem('todayTasks', JSON.stringify(this.todayTasks))
+  }
+taskDone(i:any) {
+    let checkBox = document.getElementsByClassName('checkBox') as HTMLCollectionOf<HTMLInputElement>
+    let taskDone = document.getElementById('taskDone')
+    if (checkBox[i].checked == true) {
+      $(checkBox[i]).next().css('text-decoration', 'line-through') 
+    } else {
+      $(checkBox[i]).next().css('text-decoration', 'none') 
+    }
+    
+  }
+
+  resetTasks(i:any){
+    let taskInput = document.getElementsByClassName("taskInputinner") as HTMLCollectionOf<HTMLInputElement>
+    taskInput[i].value = ''
+  }
+
+
+  // C  E  L  E  B  R  A  T  E    FUNCTIONS
+
+
+hideCelebrate() {
+    let taskDone:any = document.getElementById('taskDone')
+    taskDone.classList.replace('d-flex','d-none')
+  }
+
+hideGoalDone(i:any){
+      this.percentage.splice(i, 1)
+      localStorage.setItem('percentages',  JSON.stringify(this.percentage))
+    }
+
+
 
 
   selectedValue = null;
   ngOnInit(): void {
-    
+    if (localStorage.getItem('habits') != null) {
+      this.habits = JSON.parse(localStorage?.getItem('habits') || '')
+  } 
+
     if(localStorage.getItem('goals') != null) {
       this.allGoals = JSON.parse(localStorage?.getItem('goals') || '')
-      for (let x=0; x < this.allGoals.length; x++) {
+      this.oncetasks = JSON.parse(localStorage.getItem('goals') || '')
+    this.minus= new Array(this.allGoals.length).fill(0)
 
-        
-        this.everyTasksGoal[x] = new Array()
-        console.log(this.everyTasksGoal);
-        
-        }
     } else {
       this.allGoals = []
     }
 
       if (localStorage.getItem('goalTasks') != null) {
         this.everyTasksGoal = JSON.parse(localStorage?.getItem('goalTasks') || '')
-
-        console.log(this.everyTasksGoal);
-        
     } 
-    
 
+    if (localStorage.getItem('todayTasks') != null) {
+      this.todayTasks = JSON.parse(localStorage.getItem('todayTasks') ||'')
+    }
+
+    if (localStorage.getItem('percentagesDetails') != null) {
+      this.everyPercentage = JSON.parse(localStorage.getItem('percentagesDetails') ||'')
+    }
+
+    
+    if (localStorage.getItem('percentages') != null) {
+      this.percentage = JSON.parse(localStorage.getItem('percentages') ||'')
+    }
+
+
+    if (localStorage.getItem('lengthsOfTasks') != null) {
+      this.lengths = JSON.parse(localStorage.getItem('lengthsOfTasks') || '')
+
+    } 
+    if (localStorage.getItem('percentages') != null) {
+      this.percentage = JSON.parse(localStorage.getItem('percentages') ||'')
+    }
+    
   }
 }
