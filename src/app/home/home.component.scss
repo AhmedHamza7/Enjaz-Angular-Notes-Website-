@@ -87,9 +87,13 @@ $textColor: white;
 }
 
 
-
+.habitsCounter{
+    width: 70%;
+}
 .habits{
     border-bottom: 1px solid white;
+    z-index: 2;
+    position: relative;
 
     .habitsHead{
         button{
@@ -289,11 +293,12 @@ $textColor: white;
 
 .addGoal {
     background-color: rgba(0, 0, 0, 0.41);
-    height: 100vh;
+    min-height: 100vh;
     top: 0;
     bottom: 0;
     left: 0;
     right:0;
+    z-index: 999;
 
     .item {
         background-color: $mainColor;
@@ -493,6 +498,7 @@ $textColor: white;
 .taskDone {
     overflow-y: hidden;
     min-height: 100%;
+    z-index: 99;
 
     .celebration{
         overflow-y: hidden;

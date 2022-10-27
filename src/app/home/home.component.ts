@@ -37,6 +37,13 @@ export class HomeComponent implements OnInit {
   colorInput:any 
 
 
+  minusBeforeDelete: any [] = []
+  LengthsBeforeDelete:any [] = []
+  FixedLengths:any[] = []
+  FixedMinus:any [] = []
+
+  habitsCounter:number = 0
+
 
 
   goalDetails = new FormGroup({
@@ -53,6 +60,9 @@ export class HomeComponent implements OnInit {
   })
 
   // H   A   B   I   T    FUNCTIONS
+
+
+      
   addHabit() {
     let inputHabit = document.getElementById('inputHabit') as HTMLInputElement
 
@@ -73,12 +83,30 @@ export class HomeComponent implements OnInit {
     let habitCheck = document.getElementsByClassName('habitCheck') as HTMLCollectionOf<HTMLInputElement>
 
     for(let x=0; x < this.habits.length; x++){
-
       if ( $('.habitCheck').prop("checked",true)){
         $('.habitCheck').prop("checked",false)
 
       }
     }
+    
+    this.habitsCounter++
+
+    localStorage.setItem('habitsCounter', JSON.stringify(this.habitsCounter))
+
+    if (this.habitsCounter >= 30) {
+      this.habitsCounter = 0
+
+
+      let taskDone = document.getElementById('taskDone')
+          const diplayCelebrate = setTimeout(() => {
+            taskDone?.classList.replace('d-none','d-flex')
+          }, 0);
+        
+      }
+    
+
+    localStorage.setItem('habitsCounter', JSON.stringify(this.habitsCounter))
+
   }
 
   // G   O   A   L  S    FUNCTIONS
@@ -117,6 +145,8 @@ addGoal(){
     this.oncetasks[this.oncetasks.length - 1].tasks = new Array()
     this.percentage[this.oncetasks.length - 1] = new Array()
     this.minus= new Array(this.allGoals.length).fill(0)
+    this.FixedLengths= new Array(this.allGoals.length).fill(0)
+    this.FixedMinus = new Array(this.allGoals.length).fill(0)
 
     localStorage.setItem('percentages',  JSON.stringify(this.percentage))
     localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
@@ -130,11 +160,15 @@ addGoal(){
 deleteItem(indexItem:any) {
   this.allGoals.splice(indexItem, 1)
   this.everyTasksGoal.splice(indexItem, 1)
-  this.percentage.splice(indexItem, 1)
+  this.everyPercentage.splice(indexItem, 1)
+  this.minus.splice(indexItem, 1)
+  this.LengthsBeforeDelete.splice(indexItem, 1)
+  // this.lengths = this.LengthsBeforeDelete[indexItem] 
+
 
   localStorage.setItem('goals',JSON.stringify(this.allGoals) )
   localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
-  localStorage.setItem('percentages',  JSON.stringify(this.percentage))
+  localStorage.setItem('percentagesDetails',  JSON.stringify(this.everyPercentage))
 
 
 }
@@ -153,11 +187,10 @@ addTask(i:any) {
   
     if(taskInput[i].value != ''){
       this.everyTasksGoal[i].push(taskInput[i].value)
-      this.lengths = this.everyTasksGoal[i].length
+      this.FixedLengths[i]++
+      this.lengths = this.FixedLengths[i]
     }
 
-    if (this.minus[i] != 0) {
-      this.minus[i] = this.minus[i] - 1 
     this.percentage[i] = (this.minus[i] / this.lengths) * 100
       
     for (let x=0; x < this.allGoals.length;x++){
@@ -174,12 +207,14 @@ addTask(i:any) {
         lengths: this.lengths,
         percentage: this.percentage[i]
       }
-    localStorage.setItem('percentages',  JSON.stringify(this.percentage))
-    }
-    
 
-    
-    localStorage.setItem('lengthsOfTasks', JSON.stringify(this.lengths))
+
+      this.minusBeforeDelete[i] = this.minus[i]
+      this.LengthsBeforeDelete[i] = this.lengths
+
+
+    localStorage.setItem('percentages',  JSON.stringify(this.percentage))
+    localStorage.setItem('lengthsOfTasks', JSON.stringify(this.LengthsBeforeDelete))
     localStorage.setItem('lengths', JSON.stringify(this.lengths))
     localStorage.setItem('goalTasks',JSON.stringify(this.everyTasksGoal))
     
@@ -193,6 +228,8 @@ addTask(i:any) {
     let textTask = $(target).parent().prev().children().text()
 
     if(textTask != '') {
+      // this.lengths = this.everyTasksGoal[i].length
+      this.lengths = this.LengthsBeforeDelete[i] 
 
       this.minus[i]++
     this.todayTasks.push(textTask)
@@ -207,13 +244,19 @@ addTask(i:any) {
         }, 0);
       }
     }
+
+    console.log(this.minus);
+    
+    console.log(this.lengths);
+    
       this.everyPercentage[i] = {
         minus: this.minus[i],
         lengths: this.lengths,
         percentage: this.percentage[i]
       }
 
-      
+      this.minusBeforeDelete[i] = this.minus[i]
+      this.LengthsBeforeDelete[i] = this.lengths
       this.everyTasksGoal[i].splice(e, 1)
       localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
 
@@ -226,9 +269,12 @@ addTask(i:any) {
   }
 
   deleteGoalTask(i:any, e:any){
-    this.everyTasksGoal[i].splice(e, 1)
+    this.lengths = this.LengthsBeforeDelete[i] 
 
-    this.minus[i] = this.minus[i] + 1 
+    this.everyTasksGoal[i].splice(e, 1)
+    this.minusBeforeDelete[i]++
+    this.minus[i] = this.minusBeforeDelete[i]
+
     this.percentage[i] = (this.minus[i] / this.lengths) * 100
       
     for (let x=0; x < this.allGoals.length;x++){
@@ -240,11 +286,17 @@ addTask(i:any) {
         }, 0);
       }
     }
+    console.log(this.minus);
+    
+    console.log(this.lengths);
       this.everyPercentage[i] = {
         minus: this.minus[i],
         lengths: this.lengths,
         percentage: this.percentage[i]
       }
+
+ 
+
     localStorage.setItem('percentages',  JSON.stringify(this.percentage))
     localStorage.setItem('goalTasks', JSON.stringify(this.everyTasksGoal))
 
@@ -304,6 +356,9 @@ hideGoalDone(i:any){
 
   selectedValue = null;
   ngOnInit(): void {
+    if (localStorage.getItem('habitsCounter') != null) {
+      this.habitsCounter = JSON.parse(localStorage.getItem('habitsCounter') || '')
+    }
     if (localStorage.getItem('habits') != null) {
       this.habits = JSON.parse(localStorage?.getItem('habits') || '')
   } 
@@ -336,9 +391,9 @@ hideGoalDone(i:any){
 
 
     if (localStorage.getItem('lengthsOfTasks') != null) {
-      this.lengths = JSON.parse(localStorage.getItem('lengthsOfTasks') || '')
-
+      this.LengthsBeforeDelete = JSON.parse(localStorage.getItem('lengthsOfTasks') || '')
     } 
+      
     if (localStorage.getItem('percentages') != null) {
       this.percentage = JSON.parse(localStorage.getItem('percentages') ||'')
     }
