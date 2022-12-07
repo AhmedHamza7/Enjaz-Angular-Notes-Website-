@@ -24,7 +24,7 @@
                             <div class="taskInput  position-relative mb-2 m-1" id="DivInputHabit">
                                 <input type="text" placeholder="Task" class="habitInput" id="inputHabit">
         
-                                <button class="btn btn-outline-light plus" (click)="addHabit()">
+                                <button class="btn btn-outline-light plus d-flex align-items-center justify-content-center" (click)="addHabit()">
                                     <i class="fa-solid fa-plus"></i>
                                 </button>
                             </div>
@@ -119,7 +119,7 @@
                             <div class="taskInput  position-relative mb-2">
                                 <input type="text" placeholder="Task" class="taskInputinner">
 
-                                <button class="btn btn-outline-light plus" (click)="addTask(i)">
+                                <button class="btn btn-outline-light plus d-flex align-items-center justify-content-center" (click)="addTask(i)">
                                     <i class="fa-solid fa-plus"></i>
                                 </button>
                             </div>
@@ -161,7 +161,7 @@
                     <div class="taskInput  position-relative mb-2 ">
                         <input type="text" placeholder="Task" class="taskInputinner" id="inputToday">
 
-                        <button class="btn btn-outline-light plus" (click)="addTodayTask()">
+                        <button class="btn btn-outline-light plus d-flex align-items-center justify-content-center" (click)="addTodayTask()">
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </div>
@@ -184,7 +184,7 @@
         </div>
     </div>
     
-    <form [formGroup]="goalDetails" (ngSubmit)="addGoal()" class="addGoal position-absolute d-flex justify-content-center align-items-center w-sm-100 d-none">
+    <form [formGroup]="goalDetails" (ngSubmit)="addGoal()" class="addGoal position-absolute d-flex justify-content-center align-items-start  w-sm-100 d-none">
         
         <div class="item text-center d-flex justify-content-center align-items-center flex-wrap position-relative">
             <div class="exit position-absolute" (click)="hide()" >
