@@ -23,8 +23,10 @@ export class HomeComponent implements OnInit {
   fromDate = document.getElementById('fromDate') as HTMLInputElement
   toDate = document.getElementById('toDate') as HTMLInputElement
 
-  habits:any[] = []
-  habitCheck: any[] = []
+
+
+
+  
   allGoals:allGoals[] = []
   oncetasks:goalTasks[] = []
   onlyTasks:any[] = []
@@ -42,7 +44,6 @@ export class HomeComponent implements OnInit {
   FixedLengths:any[] = []
   FixedMinus:any [] = []
 
-  habitsCounter:number = 0
 
 
 
@@ -62,52 +63,7 @@ export class HomeComponent implements OnInit {
   // H   A   B   I   T    FUNCTIONS
 
 
-      
-  addHabit() {
-    let inputHabit = document.getElementById('inputHabit') as HTMLInputElement
 
-    if (inputHabit.value != ''){
-    this.habits.push(inputHabit.value)
-    }
-    localStorage.setItem('habits', JSON.stringify(this.habits))
-
-    inputHabit.value = ''
-  }
-
-  deleteHabit(i:any){
-    this.habits.splice(i,1)
-    localStorage.setItem('habits', JSON.stringify(this.habits))
-  }
-
-  reChecked(){
-    let habitCheck = document.getElementsByClassName('habitCheck') as HTMLCollectionOf<HTMLInputElement>
-
-    for(let x=0; x < this.habits.length; x++){
-      if ( $('.habitCheck').prop("checked",true)){
-        $('.habitCheck').prop("checked",false)
-
-      }
-    }
-    
-    this.habitsCounter++
-
-    localStorage.setItem('habitsCounter', JSON.stringify(this.habitsCounter))
-
-    if (this.habitsCounter >= 30) {
-      this.habitsCounter = 0
-
-
-      let taskDone = document.getElementById('taskDone')
-          const diplayCelebrate = setTimeout(() => {
-            taskDone?.classList.replace('d-none','d-flex')
-          }, 0);
-        
-      }
-    
-
-    localStorage.setItem('habitsCounter', JSON.stringify(this.habitsCounter))
-
-  }
 
   // G   O   A   L  S    FUNCTIONS
 
@@ -341,10 +297,7 @@ taskDone(i:any) {
   // C  E  L  E  B  R  A  T  E    FUNCTIONS
 
 
-hideCelebrate() {
-    let taskDone:any = document.getElementById('taskDone')
-    taskDone.classList.replace('d-flex','d-none')
-  }
+
 
 hideGoalDone(i:any){
       this.percentage.splice(i, 1)
@@ -356,12 +309,7 @@ hideGoalDone(i:any){
 
   selectedValue = null;
   ngOnInit(): void {
-    if (localStorage.getItem('habitsCounter') != null) {
-      this.habitsCounter = JSON.parse(localStorage.getItem('habitsCounter') || '')
-    }
-    if (localStorage.getItem('habits') != null) {
-      this.habits = JSON.parse(localStorage?.getItem('habits') || '')
-  } 
+
 
     if(localStorage.getItem('goals') != null) {
       this.allGoals = JSON.parse(localStorage?.getItem('goals') || '')

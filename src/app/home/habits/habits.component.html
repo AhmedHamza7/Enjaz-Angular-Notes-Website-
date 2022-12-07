@@ -1,0 +1,64 @@
+<div class="habitsCounter d-flex align-items-center justify-content-end fs-3 fw-bold position-absolute">
+    <p>{{habitsCounter}}/30</p>
+</div>
+
+        <div class="habits mb-3 pb-5">
+            <div class="row">
+                <div class="col-md-12 d-flex align-items-center justify-content-center">
+                    <div class="habitsHead d-flex mb-2 flex-wrap  align-items-center ">
+                        <div class="d-flex mb-2 w-100 align-items-center">
+                            <h2>Habits</h2>
+                            <button class="btn btn-outline-light mx-1" (click)="reChecked()">
+                                <i class="fa-solid fa-arrow-rotate-right p-0 m-0"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div class="col-md-12">
+                    <div class="habitsContent d-flex align-items-center justify-content-center flex-wrap">
+
+                        <div class="taskInput  position-relative mb-2 m-1" id="DivInputHabit">
+                            <input type="text" placeholder="Task" class="habitInput w-100 text-white" id="inputHabit">
+    
+                            <button class="btn btn-outline-light plus d-flex align-items-center justify-content-center position-absolute" (click)="addHabit()">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="w-100">
+                            <div class="d-flex justify-content-center">
+                                <table >
+                                    <thead>
+                                        <th *ngFor="let habit of habits; let i = index" [attr.data-index]="i">
+                                                <div class="d-flex">
+                                                    <span>
+                                                        {{habit}}
+                                                    </span>
+                                                    <button class="mx-1 btn btn-outline-light arrow d-flex align-items-center justify-content-center" (click)="deleteHabit(i)">
+                                                        <i class="fa-solid fa-trash" (click)="deleteHabit(i)"></i>
+                                                    </button>
+                                                </div>
+                                            
+                                        </th>
+                                    </thead>
+            
+                                    <tbody>
+                                        <tr>
+                                            <td *ngFor="let habit of habits; let i = index" [attr.data-index]="i" class="py-1 text-center">
+                                                <input type="checkbox" class="habitCheck">
+                                            </td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>

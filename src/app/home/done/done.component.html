@@ -1,0 +1,14 @@
+<div class="taskDone position-absolute d-flex justify-content-center align-items-center w-100 d-none" id="taskDone">
+        
+    <div class="celebration d-flex justify-content-center align-items-center flex-wrap">
+        
+        <div class="clap d-flex justify-content-center align-items-center flex-wrap p-4 position-relative">
+            <div class="exit position-absolute" (click)="hideCelebrate()" >
+                <i class="fa-solid fa-xmark fa-2x pointer" (click)="hideCelebrate()"></i>
+            </div>
+            <i class="fa-sharp fa-solid fa-hands-clapping fa-8x fa-shake text-warning mb-2 "style="--fa-animation-duration: 2s;"></i>
+            <p class="fw-bold w-100 text-center">AWESOME.. !!</p>
+        </div>
+    </div>
+    
+</div>

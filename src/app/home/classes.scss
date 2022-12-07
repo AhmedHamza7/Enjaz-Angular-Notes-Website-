@@ -1,0 +1,51 @@
+
+@use 'variables' as *;
+
+
+.exit {
+    top:15px;
+    right:25px;
+}
+.pointer {
+    cursor: pointer;
+}
+.active {
+    border: 5px solid white;
+    padding:0
+}
+.heading {
+    background-color: #256ec1;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+.col-background{
+    background-color: $mainColor;
+    box-shadow: 1px 2px 5px rgba(18, 18, 18, 0.759);
+    padding: 20px 10px;
+    border-radius: 20px;
+}
+.goalTasks-background {
+    background-color: #002147;
+    border-radius: 20px;
+}
+
+.taskInput{
+    background-color: $mainColor;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 2px solid white;
+    .plus{
+        width: 20px;
+        height: 20px;
+    }
+    input{
+        background-color: transparent;
+    }
+    input::-webkit-input-placeholder {
+        color: white;
+    }
+    button{
+        right:12px;
+        top:5px;
+    }
+}

@@ -1,68 +1,5 @@
 <div class="content px-md-5 p-sm-2 position-relative">
-    <div class="habitsCounter d-flex align-items-center justify-content-end fs-3 fw-bold position-absolute">
-        <p>{{habitsCounter}}/30</p>
-    </div>
-
-            <div class="habits mb-3 pb-5">
-                <div class="row">
-                    <div class="col-md-12 d-flex align-items-center justify-content-center">
-                        <div class="habitsHead d-flex mb-2 flex-wrap  align-items-center ">
-                            <div class="d-flex mb-2 w-100 align-items-center">
-                                <h2>Habits</h2>
-                                <button class="btn btn-outline-light mx-1" (click)="reChecked()">
-                                    <i class="fa-solid fa-arrow-rotate-right p-0 m-0"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-
-                    <div class="col-md-12">
-                        <div class="habitsContent d-flex align-items-center justify-content-center flex-wrap">
-
-                            <div class="taskInput  position-relative mb-2 m-1" id="DivInputHabit">
-                                <input type="text" placeholder="Task" class="habitInput" id="inputHabit">
-        
-                                <button class="btn btn-outline-light plus d-flex align-items-center justify-content-center" (click)="addHabit()">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
-                            
-                            <div class="w-100">
-                                <div class="d-flex justify-content-center">
-                                    <table >
-                                        <thead>
-                                            <th *ngFor="let habit of habits; let i = index" [attr.data-index]="i">
-                                                    <div class="d-flex">
-                                                        <span>
-                                                            {{habit}}
-                                                        </span>
-                                                        <button class="mx-1 btn btn-outline-light arrow d-flex align-items-center justify-content-center" (click)="deleteHabit(i)">
-                                                            <i class="fa-solid fa-trash" (click)="deleteHabit(i)"></i>
-                                                        </button>
-                                                    </div>
-                                                
-                                            </th>
-                                        </thead>
-                
-                                        <tbody>
-                                            <tr>
-                                                <td *ngFor="let habit of habits; let i = index" [attr.data-index]="i" class="py-1 text-center">
-                                                    <input type="checkbox" class="habitCheck">
-                                                </td>
-                                                
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-            </div>
+<app-habits></app-habits>
 
     <div class="row">
         <div class=" col-xl-4 col-md-6 col-sm-12">
@@ -75,13 +12,13 @@
                     <div class="goal p-3 mb-2 position-relative" *ngFor="let x of allGoals; let i = index;" [attr.data-index]="i" [ngStyle]="{'background-color':x.color}">
                         <div class="goalHead d-flex justify-content-between flex-wrap">
                             <h3>{{x.goal}}</h3>
-                            <button class="btn btn-outline-light" (click)="deleteItem(i)" >Delete</button>
+                            <button class="btn btn-outline-light" id='deleteGoal' (click)="deleteItem(i)" >Delete</button>
                         </div>
                         <div class="duration">
                             <p>{{x.fromDate}} <i class="fa-solid fa-arrow-right-long mx-2"></i>{{x.toDate}}</p>
                         </div>
 
-                        <div class="progress">
+                        <div class="progress bg-white">
                             <div class="progress-bar" role="progressbar"   [ngStyle]="{'width':percentage[i]+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             <p class="fw-bold text-black mx-4">{{percentage[i] | toNumber| number:'1.0-1'}}%</p>
                         </div>
@@ -117,7 +54,7 @@
 
                         <div class="taskContent mb-3  ">
                             <div class="taskInput  position-relative mb-2">
-                                <input type="text" placeholder="Task" class="taskInputinner">
+                                <input type="text" placeholder="Task" class="taskInputinner w-100 text-white">
 
                                 <button class="btn btn-outline-light plus d-flex align-items-center justify-content-center" (click)="addTask(i)">
                                     <i class="fa-solid fa-plus"></i>
@@ -159,7 +96,7 @@
                 
                 <div class="todayTasks">
                     <div class="taskInput  position-relative mb-2 ">
-                        <input type="text" placeholder="Task" class="taskInputinner" id="inputToday">
+                        <input type="text" placeholder="Task" class="taskInputinner w-100 text-white" id="inputToday">
 
                         <button class="btn btn-outline-light plus d-flex align-items-center justify-content-center" (click)="addTodayTask()">
                             <i class="fa-solid fa-plus"></i>
@@ -229,18 +166,5 @@
         </div>
     </form>
 
-    <div class="taskDone addGoal position-absolute d-flex justify-content-center align-items-center w-100 d-none" id="taskDone">
-        
-        <div class="celebration d-flex justify-content-center align-items-center flex-wrap">
-            
-            <div class="clap d-flex justify-content-center align-items-center flex-wrap p-4 position-relative">
-                <div class="exit position-absolute" (click)="hideCelebrate()" >
-                    <i class="fa-solid fa-xmark fa-2x pointer" (click)="hideCelebrate()"></i>
-                </div>
-                <i class="fa-sharp fa-solid fa-hands-clapping fa-8x fa-shake text-warning mb-2 "style="--fa-animation-duration: 2s;"></i>
-                <p class="fw-bold w-100 text-center">AWESOME.. !!</p>
-            </div>
-        </div>
-        
-    </div>
+    <app-done></app-done>
 </div>

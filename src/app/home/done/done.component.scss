@@ -1,0 +1,52 @@
+// @use 'classes' as *;
+@use '../variables' as *;
+
+%overlay{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+
+.taskDone {
+    background-color: rgba(0, 0, 0, 0.41);
+        @extend %overlay;
+        z-index: 999;
+        overflow-y: hidden;
+        min-height: 100%;
+        z-index: 99;
+        .celebration{
+            overflow-y: hidden;
+            min-height: 100%;
+            width: 100%;
+            background-image: url('../../../../src/assets/celebration.png');
+            background-position: center;
+            background-size: cover;
+            animation: celebrate 5s linear infinite;
+            .clap{
+                background-color: #57ff2977;
+                border-radius: 15px;
+                p {
+                    font-size: 50px;
+                    color:#fff 
+                }
+            }
+            .exit {
+                color:white;
+                padding: 10px;
+                top:10px;
+                right:10px;
+                font-size:20px;
+            }
+        }
+        @keyframes celebrate {
+            0%{
+                background-position: 20% 100%;
+            }
+            100%{
+                background-position: 0% 0%;
+            }
+        }
+        
+    }

@@ -11,6 +11,8 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
 import { ToNumberPipe } from './to-number.pipe';
+import { HabitsComponent } from './home/habits/habits.component';
+import { DoneComponent } from './home/done/done.component';
  
 
 @NgModule({
@@ -21,7 +23,9 @@ import { ToNumberPipe } from './to-number.pipe';
     AboutComponent,
     LoginComponent,
     RegisterComponent,
-    ToNumberPipe
+    ToNumberPipe,
+    HabitsComponent,
+    DoneComponent
   ],
   imports: [
     BrowserModule,

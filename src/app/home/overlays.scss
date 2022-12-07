@@ -1,0 +1,81 @@
+
+@use 'classes' as *;
+@use 'variables' as *;
+
+%overlay{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+.addGoal {
+    background-color: rgba(0, 0, 0, 0.41);
+    min-height: 100vh;
+    @extend %overlay;
+    z-index: 999;
+    padding-top: 10%;
+    .item {
+        background-color: $mainColor;
+        padding: 60px 80px;
+        border-radius: 20px;
+        width:50%;
+        .exit {
+            top:15px;
+            right:25px;
+        }
+        .inner{
+            background-color: $textColor;
+            padding: 7px 15px;
+            border-radius: 20px;
+            width: 48%;
+            label {
+                color:$mainColor
+            }
+        }
+        input{
+            width: 49%;
+        }
+        .colors {
+            ul {
+                list-style-type: none;
+                display: inline;
+                li{
+                    display: inline-block;
+                    
+                }
+            }
+            @for $i from 1 through 4 {
+                .color#{$i}{
+                    width: 40px;
+                    height:40px;
+                }
+            }
+            .color1 {
+                background-color: #d19600;
+            }
+            .color2 {
+                background-color: #af0000;
+            }
+            .color3 {
+                background-color: #00522b;
+            }
+            .color4 {
+                background-color: #460066;
+            }
+        }
+    }
+    @media screen and (max-width:992px){
+        .item{
+            padding: 50px 20px;
+            width: 90%;
+        }
+        .inner{
+            width: 100%;
+            input{
+                width: 100%;
+            }
+        }
+    }
+    }
+

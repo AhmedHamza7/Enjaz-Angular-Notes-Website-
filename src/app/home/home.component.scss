@@ -1,82 +1,25 @@
-$mainColor : #0059BF;
-$secondColor: #FFCE4E;
-$textColor: white;
+@use 'classes' as *;
+@use 'variables' as *;
+@use 'overlays' as *;
 
-
-.taskInput{
-    background-color: $mainColor;
-    padding: 2px 8px;
-    border-radius: 20px;
-    border: 2px solid white;
-    
-    .plus{
-        width: 20px;
-        height: 20px;
-    }
-    input{
-        outline: none;
-        border: none;
-        width: 100%;
-        background-color: transparent;
-        color: white;
-        
-    }
-    input::-webkit-input-placeholder {
-        color: white;
-
-    }
-
-    button{
-        position: absolute;
-        right:12px;
-        top:5px;
-    }
-
-
-}
-*{
+* {
+    border:none;
+    outline: none;
     box-sizing: border-box;
+
+}
+#deleteGoal {
+    border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
 }
 
 
-.exit {
-    top:15px;
-    right:25px;
-}
-.pointer {
-    cursor: pointer;
-}
-.active {
-    border: 5px solid white;
-    padding:0
-}
-.heading {
-    background-color: #256ec1;
-    padding: 10px 20px;
-    border-radius: 20px;
-}
-
-.col-background{
-    background-color: $mainColor;
-    box-shadow: 1px 2px 5px rgba(18, 18, 18, 0.759);
-    padding: 20px 10px;
-    border-radius: 20px;
-}
-
-.goalTasks-background {
-    background-color: #002147;
-    border-radius: 20px;
-
-}
 
 .button {
     background-color: transparent;
     color: white;
     border:2px solid white;
     padding: 5px 10px;
-    transition: all 0.3s ease;
-
-
+    transition: $transition;
     &:hover {
         background-color: white;
         color: $mainColor;
@@ -84,79 +27,10 @@ $textColor: white;
 }
 
 
-.habitsCounter{
-    width: 70%;
-}
-.habits{
-    border-bottom: 1px solid white;
-    z-index: 2;
-    position: relative;
-
-    .habitsHead{
-        button{
-
-            border: none;
-            padding: 5px 10px;
-            i{
-                font-size: 18px;
-            }
-        }
-    }
-    .habitsContent{
-
-        #DivInputHabit {
-            width: 25%;
-        }
-        table{
-            border: 1px solid;
-            thead{
-                border: 1px solid;
-
-                th{
-                    border: 1px solid;
-                    padding-left: 10px;
-
-                    button{
-                        padding: 5px;
-                        border: none;
-                        i{
-                            font-size: 13px;
-                        }
-                    }
-                }
-            }
-
-            tbody{
-                tr{
-                    border: 1px solid;
-
-                    td{
-                        border: 1px solid;
-                        padding: 10px;
-
-                        input{
-                            width: 20px;
-                            height:20px
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 .goals-item {
     .goal{
-        background-color: #FFCE4E;
         border-radius: 15px;
-        h3 {
-            color:$textColor
-        }
-        p {
-            color: $textColor;
-        }
-
         .-progress {
-            background-color: white;
             height: 20px;
             border-radius: 10px;
             position: relative;
@@ -169,17 +43,10 @@ $textColor: white;
                 background-color: $mainColor;
             }
         }
-
-
         .goalDone{
-            position: absolute;
-            left:0;
-            right:0;
-            top:0;
-            bottom: 0;
+            @extend %overlay;
             border-radius: 15px;
             background-color: #4BB543;
-
             i{
                 font-size:50px;
             }
@@ -188,24 +55,12 @@ $textColor: white;
 }
 
 .tasks-item{
-    p {
+    p{
         padding: 0;
         margin: 0;
     }
-
-    
     font-size: 22px;
-    .doneBox{
-        padding: 0;
-        margin: 0;
-        width: 30px;
-        height: 30px;
-        background-color: white;
-    }
-
     .tasks {
-        margin: 0;
-        padding: 0;
         .taskHead{
             border: {
                 top: 2px solid;
@@ -214,51 +69,34 @@ $textColor: white;
                 radius: 10px
             }
             position: relative;
-
-            
             p {
                 margin: 0;
                 padding: 10px;
                 text-align: center;
             }
         }
-
         .taskContent{
             .taskInput{
                 background-color: #002147;
                 padding: 2px 8px;
                 border-radius: 20px;
                 border: 2px solid white;
-                
                 .plus{
                     width: 30px;
                     height: 30px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
                 }
                 input{
-                    outline: none;
-                    border: none;
-                    width: 100%;
                     background-color: transparent;
-                    color: white;
-                    
                 }
                 input::-webkit-input-placeholder {
                     color: white;
-
                 }
-
                 button{
                     position: absolute;
                     right:12px;
                     top:5px;
                 }
-    
-    
             }
-
             .task {
                 border: {
                     bottom: 2px solid;
@@ -270,167 +108,17 @@ $textColor: white;
                     border-bottom: 1px solid white;
                     border-spacing: 10px;
                 }
-
                 .arrow{
                     width: 40px;
                     height: 30px;
                 }
-
             }
-        
-            
         }
-
     }
 }
 
-
-.addGoal {
-    background-color: rgba(0, 0, 0, 0.41);
-    min-height: 100vh;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right:0;
-    z-index: 999;
-    padding-top: 10%;
-    .item {
-        background-color: $mainColor;
-        padding: 60px 80px;
-        border-radius: 20px;
-        width:50%;
-        .exit {
-            top:15px;
-            right:25px;
-        }
-        .inner{
-            background-color: $textColor;
-            padding: 7px 15px;
-            border-radius: 20px;
-            width: 48%;
-
-            label {
-                color:$mainColor
-            }
-
-        }
-    
-        input{
-            outline: none;
-            border: none;
-            width: 49%;
-        }
-
-        .colors {
-
-            ul {
-                list-style-type: none;
-                display: inline;
-
-                li{
-                    display: inline-block;
-                    
-                }
-            }
-            .color1 {
-                width: 40px;
-                height:40px;
-                background-color: #d19600;
-            }
-            .color2 {
-                width: 40px;
-                height:40px;
-                background-color: #af0000;
-            }
-            .color3 {
-                width: 40px;
-                height:40px;
-                background-color: #00522b;
-            }
-            .color4 {
-                width: 40px;
-                height:40px;
-                background-color: #460066;
-            }
-        }
-    }
-    @media screen and (max-width:992px){
-        .item{
-            padding: 50px 20px;
-
-            width: 90%;
-        }
-
-        .inner{
-            width: 100%;
-
-            input{
-                width: 100%;
-            }
-        }
-    }
-        
-    }
-
-    
-
-.addTask {
-        background-color: rgba(0, 0, 0, 0.41);
-        height: 100vh;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right:0;
-    
-        .item {
-            background-color: $mainColor;
-            padding: 60px 80px;
-            border-radius: 20px;
-    
-            .exit {
-                top:15px;
-                right:25px;
-            }
-            .inner{
-                background-color: $textColor;
-                padding: 7px 15px;
-                border-radius: 20px;
-                width: 48%;
-    
-                label {
-                    color:$mainColor
-                }
-    
-            }
-        
-            input{
-                outline: none;
-                border: none;
-                width: 49%;
-            }
-    
-        }
-        
-        
-        select {
-            outline: none;
-            width: 300px;
-            padding: 7px 15px;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 15px;
-            margin-inline: 10px;
-            
-            option{
-                font-weight: bold;
-            }
-        }
-        }
-
-
 .today-item{
     .todayTasks{
-
         *{
             padding: 0;
             margin: 0;
@@ -438,99 +126,36 @@ $textColor: white;
         input{
             width: 25px;
             height:25px;
-            padding: 0;
-            margin: 0;
         }
         label{
-            padding: 0;
-            margin: 0;
         font-size: 28px;
         }
-
         .arrow{
             width: 40px;
             height: 30px;
         }
-
         .taskInput{
             background-color: $mainColor;
             padding: 2px 8px;
             border-radius: 20px;
             border: 2px solid white;
-            
             .plus{
                 width: 20px;
                 height: 20px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
             input{
-                outline: none;
-                border: none;
-                width: 100%;
                 background-color: transparent;
-                color: white;
-                
             }
             input::-webkit-input-placeholder {
                 color: white;
-
             }
-
             button{
                 position: absolute;
                 right:12px;
                 top:5px;
             }
-
-
         }
     }
-}
-
-.taskDone {
-    overflow-y: hidden;
-    min-height: 100%;
-    z-index: 99;
-
-    .celebration{
-        overflow-y: hidden;
-        min-height: 100%;
-        width: 100%;
-        background-image: url('../../../src/assets/celebration.png');
-        background-position: center;
-        background-size: cover;
-        animation: celebrate 5s linear infinite;
-
-
-        .clap{
-            background-color: #57ff2977;
-            border-radius: 15px;
-            p {
-                font-size: 50px;
-                color:#fff 
-            }
-        }
-
-        .exit {
-            color:white;
-            padding: 10px;
-            top:10px;
-            right:10px;
-            font-size:20px;
-        }
-    }
-
-    @keyframes celebrate {
-        0%{
-            background-position: 20% 100%;
-        }
-        100%{
-            background-position: 0% 0%;
-        }
-    }
-    
 }
 
 
@@ -538,11 +163,4 @@ $textColor: white;
     .col-md-6{
         margin-bottom: 20px;
     }
-
-    #DivInputHabit {
-            width: 80% !important;
-        }
-    #inputHabit {
-        width:80% !important;
-        }
 }

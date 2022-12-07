@@ -1,0 +1,66 @@
+
+@use '../classes.scss' as *;
+* {
+    border:none;
+    outline: none;
+    box-sizing: border-box;
+
+}
+.habitsCounter{
+    width: 80%;
+}
+.habits{
+    border-bottom: 1px solid white;
+    z-index: 2;
+    position: relative;
+    .habitsHead{
+        button{
+            padding: 5px 10px;
+            i{
+                font-size: 18px;
+            }
+        }
+    }
+    .habitsContent{
+        #DivInputHabit {
+            width: 25%;
+        }
+        table,thead, th{
+            border: 1px solid;
+                th{
+                    padding-left: 10px;
+                    button{
+                        padding: 5px;
+                        i{
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+            tbody{
+                tr,td{
+                    border: 1px solid;
+                    td{
+                        padding: 10px;
+                        input{
+                            width: 20px;
+                            height:20px
+                        }
+                    }
+                }
+            }
+        }
+}
+
+
+@media screen and (max-width:992px){
+    .col-md-6{
+        margin-bottom: 20px;
+    }
+    #DivInputHabit {
+            width: 80% !important;
+        }
+    #inputHabit {
+        width:80% !important;
+        }
+}
